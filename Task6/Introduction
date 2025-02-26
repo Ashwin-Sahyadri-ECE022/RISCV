@@ -7,7 +7,7 @@ This project uses an **IR sensor** to detect obstacles and activates a **buzzer*
 | **Component**        | **CH32V003 Pin** | **Configuration**        |
 |----------------------|-----------------|--------------------------|
 | **IR Sensor Output** | **PC3**         | **Input (Pull-up)**      |
-| **Buzzer**          | **PC4**         | **Output (Push-Pull)**   |
+| **Buzzer**           | **PC4**         | **Output (Push-Pull)**   |
 | **Common Ground**    | **GND**         | **Connects all GNDs**    |
 
 ## 🛠️ Requirements
