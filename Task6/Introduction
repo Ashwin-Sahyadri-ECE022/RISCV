@@ -1,0 +1,59 @@
+# 🔔 IR Sensor with Buzzer Alert using CH32V003
+
+This project uses an **IR sensor** to detect obstacles and activates a **buzzer** (connected to PC4) when an object is detected. The project is developed using **CH32V003**, with PlatformIO as the development environment.
+
+## 📌 Hardware Connections
+
+|   Component          |   CH32V003 Pin  |   Configuration         |
+|----------------------|-----------------|--------------------------|
+| **IR Sensor Output** | **PC3**         | **Input (Pull-up)**      |
+| **Buzzer**           | **PC4**         | **Output (Push-Pull)**   |
+| **Common Ground**    | **GND**         | **Connects all GNDs**    |
+
+## 🛠️ Requirements
+
+- **CH32V003 MCU Board**
+- **IR Sensor Module**
+- **Buzzer**
+- **PlatformIO (for development)**
+- **WCH-Link (for flashing)**
+
+## 📜 Code Implementation
+
+
+#include "ch32v00x.h"
+
+// Define pins
+#define IR_SENSOR_PIN  GPIO_Pin_3  // PC3 as input
+#define BUZZER_PIN     GPIO_Pin_4  // PC4 as output
+
+void GPIO_Config(void) {
+    // Enable GPIOC clock
+    RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOC, ENABLE);
+
+    // Configure PC3 as input (IR sensor)
+    GPIO_InitTypeDef GPIO_InitStruct;
+    GPIO_InitStruct.GPIO_Pin = IR_SENSOR_PIN;
+    GPIO_InitStruct.GPIO_Mode = GPIO_Mode_IPU; // Input with pull-up
+    GPIO_Init(GPIOC, &GPIO_InitStruct);
+
+    // Configure PC4 as output (Buzzer)
+    GPIO_InitStruct.GPIO_Pin = BUZZER_PIN;
+    GPIO_InitStruct.GPIO_Mode = GPIO_Mode_Out_PP; // Push-pull output
+    GPIO_InitStruct.GPIO_Speed = GPIO_Speed_50MHz;
+    GPIO_Init(GPIOC, &GPIO_InitStruct);
+}
+
+int main(void) {
+    SystemInit();   // Initialize system
+    GPIO_Config();  // Configure GPIO
+
+    while (1) {
+        // Read IR sensor value
+        if (GPIO_ReadInputDataBit(GPIOC, IR_SENSOR_PIN) == 0) {
+            GPIO_SetBits(GPIOC, BUZZER_PIN);  // Turn ON Buzzer
+        } else {
+            GPIO_ResetBits(GPIOC, BUZZER_PIN); // Turn OFF Buzzer
+        }
+    }
+}
