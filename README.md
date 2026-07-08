@@ -15,6 +15,9 @@ If you love low-level architecture, embedded systems, and the future of open-sou
 
 ---
 
+
+---
+
 <div align="center">
   <h2><strong>👨‍💻 Connect with Me</strong></h2>
   <a href="https://github.com/Ashwin-Sahyadri-ECE022"><img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white" /></a>
